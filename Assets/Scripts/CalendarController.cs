@@ -25,6 +25,8 @@ public class CalendarController : MonoBehaviour
     public Sprite angrySprite;
     public Sprite noneSprite;
 
+    public GameObject WritePanel;
+
     void Start()
     {
         _calendarInstance = this;
@@ -72,6 +74,19 @@ public class CalendarController : MonoBehaviour
                     label.text = (date + 1).ToString();
 
 
+
+                    //  날짜 셀(GameObject) 자체에 Button 추가 & 클릭 핸들러 등록
+                    var cell = _dateItems[i];
+                    var cellBtn = cell.GetComponent<Button>()
+                                    ?? cell.AddComponent<Button>();
+                    cellBtn.onClick.RemoveAllListeners();
+                    string fullDateCopy = thatDay.ToString("yyyy-MM-dd");
+                    cellBtn.onClick.AddListener(() =>
+                    HandleDateClick(fullDateCopy));
+
+
+
+
                     //감정 불러오기
                     string fullDate = thatDay.ToString("yyyy-MM-dd");
                     string emotion = PlayerPrefs.GetString("emotion_" + fullDate, "none");
@@ -109,8 +124,9 @@ public class CalendarController : MonoBehaviour
                             btn.onClick.AddListener(() => {
                                 if (DiaryPopupManager.Instance != null)
                                     DiaryPopupManager.Instance.ShowDiary(selectedDate);
-                                else
-                                    Debug.LogWarning("❗ DiaryPopupManager.Instance is null");
+                                else if(emotionSprite == noneSprite)
+                                    Debug.LogWarning("DiaryPopupManager.Instance is null");
+                                  
                             });
 
                         }
@@ -192,5 +208,27 @@ public class CalendarController : MonoBehaviour
         }
     }
 
+
+    // CalendarController 클래스 내부, 다른 메서드들 아래에 추가
+    private void HandleDateClick(string fullDate)
+    {
+        // 클릭된 날짜 포맷 저장 및 텍스트 세팅
+        selectedDate = fullDate;
+        _target.text = fullDate;
+
+        // 저장된 감정 조회
+        string emotion = PlayerPrefs.GetString("emotion_" + fullDate, "none");
+        if (emotion == "none")
+        {
+            // 감정 없으면 새 일기 작성 패널 열기
+            WritePanel.SetActive(true);
+        }
+        else
+        {
+            // 감정 있으면 기존 일기 뷰어 표시
+            _calendarPanel.SetActive(false);
+            DiaryPopupManager.Instance?.ShowDiary(fullDate);
+        }
+    }
 
 }
