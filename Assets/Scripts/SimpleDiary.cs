@@ -15,6 +15,12 @@ public class SimpleDiary : MonoBehaviour
     private string today;
     private string photoPath = "";
 
+    public TMP_InputField diaryInputField; // 기존 InputField를 inspector에서 연결해줘야 함
+    public GameObject savedDiaryPanel; // 저장된 일기 보여주는 패널
+    public GameObject writeDiaryPanel; // 수정하는 InputField 있는 패널
+    public Text ModifyDate;
+
+
     void Start()
     {
         today = System.DateTime.Now.ToString("yy.M.d");
@@ -83,6 +89,37 @@ public class SimpleDiary : MonoBehaviour
 
         }
 #endif
+    }
+
+    // 수정 버튼 누를 때 호출
+    public void EnterModifyMode()
+    {
+        string date = CalendarController.selectedDate;
+        string content = PlayerPrefs.GetString("diary_" + date, ""); // 저장된 일기 불러오기
+
+
+        Debug.Log("수정모드 들어감");
+        Debug.Log("선택된 날짜: " + date);
+        Debug.Log("PlayerPrefs에서 읽어온 내용: " + content);
+
+
+        if (diaryInputField != null)
+        {
+            diaryInputField.text = content; // 수정 입력창에 기존 내용을 채워넣기
+            
+        }
+        else
+        {
+            Debug.LogWarning("InputField가 연결되어 있지 않습니다.");
+        }
+
+        if (savedDiaryPanel != null)
+            savedDiaryPanel.SetActive(false); // 보기용 패널 끄기
+
+        if (writeDiaryPanel != null)
+            writeDiaryPanel.SetActive(true); // 수정용 패널 켜기
+
+        Debug.Log("수정 모드 진입: 날짜 " + date + ", 내용: " + content);
     }
 
 }

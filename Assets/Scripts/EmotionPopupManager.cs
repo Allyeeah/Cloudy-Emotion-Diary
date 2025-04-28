@@ -43,7 +43,6 @@ public class EmotionPopupManager : MonoBehaviour
         selectedEmotion = emotion;
 
         //diaryScript.SaveWithEmotion(selectedEmotion);
-
        // popupPanel.SetActive(false);
 
     }
