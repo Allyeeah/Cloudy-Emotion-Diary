@@ -79,10 +79,12 @@ public class CalendarController : MonoBehaviour
                     var cell = _dateItems[i];
                     var cellBtn = cell.GetComponent<Button>()
                                     ?? cell.AddComponent<Button>();
+                
                     cellBtn.onClick.RemoveAllListeners();
                     string fullDateCopy = thatDay.ToString("yyyy-MM-dd");
                     cellBtn.onClick.AddListener(() =>
-                    HandleDateClick(fullDateCopy));
+      
+                        HandleDateClick(fullDateCopy));
 
 
 
@@ -103,6 +105,7 @@ public class CalendarController : MonoBehaviour
                             // 감정이 없거나 정의되지 않았으면 아이콘 숨기기
                             iconImage.sprite = null;
                             iconImage.color = new Color(1, 1, 1, 0); // 완전 투명
+
                         }
                         else
                         {
@@ -116,7 +119,7 @@ public class CalendarController : MonoBehaviour
 
        
 
-                            btn.onClick.RemoveAllListeners(); // 중복 방지
+                           btn.onClick.RemoveAllListeners(); // 중복 방지
 
                             // 클로저 문제 방지: 지역 변수 복사
                             string selectedDate = fullDate;
@@ -181,6 +184,7 @@ public class CalendarController : MonoBehaviour
 
     public void ShowCalendar(Text target)
     {
+       
         _calendarPanel.SetActive(true);
         _target = target;
         //_calendarPanel.transform.position = new Vector3(965, 475, 0);//Input.mousePosition-new Vector3(0,120,0);

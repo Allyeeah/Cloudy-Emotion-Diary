@@ -10,6 +10,8 @@ public class SimpleDiary : MonoBehaviour
     public Text displayText;
     public RawImage photoDisplay;
 
+    public Text dateText;
+
     private string today;
     private string photoPath = "";
 
@@ -33,6 +35,7 @@ public class SimpleDiary : MonoBehaviour
 
         PlayerPrefs.Save();
 
+       
         LoadText(date); //화면에 즉시 반영
         Debug.Log("저장됨 날짜: " + date);
         Debug.Log("내용: " + content);
@@ -46,6 +49,9 @@ public class SimpleDiary : MonoBehaviour
         string savedPhoto = PlayerPrefs.GetString("photo_" + date, "");
 
         displayText.text = content;
+
+        // 날짜도 출력
+        dateText.text = date;
 
         // 사진 불러오기
         if (!string.IsNullOrEmpty(savedPhoto) && File.Exists(savedPhoto))
@@ -73,7 +79,7 @@ public class SimpleDiary : MonoBehaviour
             Texture2D tex = new Texture2D(2, 2);
             tex.LoadImage(imgBytes);
             photoDisplay.texture = tex;
-           // photoDisplay.color = new Color(1, 1, 1, 0.3f); // 살짝 흐리게 표시해도 좋음 (선택만 된 상태 표시용)
+            // photoDisplay.color = new Color(1, 1, 1, 0.3f); // 살짝 흐리게 표시해도 좋음 (선택만 된 상태 표시용)
 
         }
 #endif

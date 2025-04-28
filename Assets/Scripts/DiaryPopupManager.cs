@@ -16,17 +16,20 @@ public class DiaryPopupManager : MonoBehaviour
 
     public Sprite happySprite, sadSprite, angrySprite;
 
+    public GameObject WritePanel;
+
     private void Awake()
     {
         Instance = this;
     }
     public void ShowDiary(string date)
     {
-        // 감정이 저장되어 있는지 확인 (none이면 무시)
+       // 감정이 저장되어 있는지 확인 (none이면 무시)
         string emotion = PlayerPrefs.GetString("emotion_" + date, "none");
         if (emotion == "none")
         {
-            Debug.Log("감정이 없는 날이므로 팝업을 열지 않음: " + date);
+            Debug.Log("감정이 없는 날이므로 일기 작성하는 팝업 열음: " + date);
+            WritePanel.SetActive(true);
             return;
         }
 

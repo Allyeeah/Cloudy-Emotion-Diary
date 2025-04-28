@@ -6,7 +6,7 @@ public class EmotionSelector : MonoBehaviour
 {
     public Image emotionImageDisplay;
     public GameObject popupPanel;
-
+    public GameObject savedDiaryPanel;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,5 +39,6 @@ public class EmotionSelector : MonoBehaviour
         CalendarController._calendarInstance.CreateCalendar();
 
         popupPanel.SetActive(false); // ÆË¾÷ ´Ý±â
+        
     }
 }

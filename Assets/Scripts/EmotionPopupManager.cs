@@ -7,21 +7,22 @@ public class EmotionPopupManager : MonoBehaviour
 {
     public GameObject popupPanel;
     public SimpleDiary diaryScript;
+    
 
     private string selectedEmotion = "";
     public Image emotionDisplayImage;
 
-    
+
     // Start is called before the first frame update
     void Start()
     {
-        popupPanel.SetActive(false);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     public void OpenPopup()
     {
@@ -32,13 +33,18 @@ public class EmotionPopupManager : MonoBehaviour
     {
         popupPanel.SetActive(false);
     }
-    public void SelecEmotion(string emotion)
+    public void SaveButton()
+    {
+        diaryScript.SaveWithEmotion(selectedEmotion);
+        popupPanel.SetActive(false);
+    }
+    public void SelectEmotion(string emotion)
     {
         selectedEmotion = emotion;
 
-        diaryScript.SaveWithEmotion(selectedEmotion);
+        //diaryScript.SaveWithEmotion(selectedEmotion);
 
-        popupPanel.SetActive(false);
-        
+       // popupPanel.SetActive(false);
+
     }
 }
